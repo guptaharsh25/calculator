@@ -10,12 +10,24 @@ body = Tk();
 #type of operation
 global oprType;
 global numReaderStr;
+global allClear;
+global num;
+global num1;
+
+oprType = -1;
 
 #String var for numReader
 numReaderStr = StringVar();
 numReaderStr.set("0");
+
+def checkClear(numReaderStr):
+    pullText = numReaderStr.get();
+    if pullText != "0":
+        equal.config(text="C");
+        
+
 #Dial
-numReader = Entry(body,width=50,exportselection=0,justify="right",bd=0,textvariable = numReaderStr);
+numReader = Entry(body,width=50,exportselection=0,justify="right",bd=0,textvariable = numReaderStr,command = lambda: checkClear(numReaderStr));
 
 #onButtonPress
 def onOprPress(numReader, numReaderStr, oprType):
@@ -56,7 +68,8 @@ add = Button(body, text="+", bd=0, command = lambda: onOprPress(numReader, numRe
 sub = Button(body, text="-", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 1));
 mult = Button(body, text="x", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 2));
 div = Button(body, text="/", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 3));
-equal=Button(body, text="=", bd=0, command = lambda: onEqualPress(numReader, numReaderStr, oprT, num));
+equal = Button(body, text="=", bd=0, command = lambda: onEqualPress(numReader, numReaderStr, oprT, num));
+clear = Button(body, text="AC", bd=0, command = lambda: onClearPress(numReader, numReaderStr, num, num1, allClear));
 
 #onButtonPress
 def onOprPress(numReader, numReaderStr, oprType):
@@ -70,6 +83,7 @@ def onOprPress(numReader, numReaderStr, oprType):
     return numReaderStr;
 
 def onEqualPress(numReader, numReaderStr, oprType, num):
+    global num1;
     num1 = float(numReader.get());
     global answer;
 
@@ -92,12 +106,22 @@ def onEqualPress(numReader, numReaderStr, oprType, num):
     else:
         numReaderStr.set(answer);
 
+def onClearPress(numReader, numReaderStr, num, num1, allClear):
+    if (allClear == 'true'):
+        numReaderStr.set("0");
+        onEqualPress(numReader, numReader, 0, 0);
+    else:
+        num1 = 0;
+        numReaderStr.set("0");
+
+
 #Add to grid
 numReader.grid(row=1, column=0, columnspan=2);
-add.grid(row=2, column=0);
-sub.grid(row=2, column=1);
-mult.grid(row=3, column=0);
-div.grid(row=3, column=1);
-equal.grid(row=4, columnspan=2);
+clear.grid(row=2, columnspan=2);
+add.grid(row=3, column=0);
+sub.grid(row=3, column=1);
+mult.grid(row=4, column=0);
+div.grid(row=4, column=1);
+equal.grid(row=5, columnspan=2);
 
 body.mainloop();
