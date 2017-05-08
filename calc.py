@@ -20,14 +20,16 @@ oprType = -1;
 numReaderStr = StringVar();
 numReaderStr.set("0");
 
+"""
 def checkClear(numReaderStr):
     pullText = numReaderStr.get();
     if pullText != "0":
         equal.config(text="C");
-        
+"""
+
 
 #Dial
-numReader = Entry(body,width=50,exportselection=0,justify="right",bd=0,textvariable = numReaderStr,command = lambda: checkClear(numReaderStr));
+numReader = Entry(body,width=50,exportselection=0,justify="right",bd=0,textvariable = numReaderStr);
 
 #onButtonPress
 def onOprPress(numReader, numReaderStr, oprType):
@@ -46,15 +48,20 @@ def onEqualPress(numReader, numReaderStr, oprType, num):
 
     if (oprType == 0):
         answer = num + num1;
+        oprType = -1;
     elif (oprType == 1):
         answer = num - num1;
+        oprType = -1;
     elif (oprType == 2):
         answer = num * num1;
+        oprType = -1;
     elif (oprType == 3):
         if (num1 == 0):
             answer = "Error: Cannot divide by 0.";
+            oprType = -1;
         else:
             answer = num / num1;
+            oprType = -1;
     else:
         answer = "Error!";
 
@@ -69,7 +76,7 @@ sub = Button(body, text="-", bd=0, command = lambda: onOprPress(numReader, numRe
 mult = Button(body, text="x", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 2));
 div = Button(body, text="/", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 3));
 equal = Button(body, text="=", bd=0, command = lambda: onEqualPress(numReader, numReaderStr, oprT, num));
-clear = Button(body, text="AC", bd=0, command = lambda: onClearPress(numReader, numReaderStr, num, num1, allClear));
+clear = Button(body, text="AC", bd=0, command = lambda: onClearPress(numReader, numReaderStr, num, num1));
 
 #onButtonPress
 def onOprPress(numReader, numReaderStr, oprType):
@@ -106,13 +113,9 @@ def onEqualPress(numReader, numReaderStr, oprType, num):
     else:
         numReaderStr.set(answer);
 
-def onClearPress(numReader, numReaderStr, num, num1, allClear):
-    if (allClear == 'true'):
+def onClearPress(numReader, numReaderStr, num, num1):
         numReaderStr.set("0");
-        onEqualPress(numReader, numReader, 0, 0);
-    else:
-        num1 = 0;
-        numReaderStr.set("0");
+        onEqualPress(numReader, numReaderStr, 0, 0);
 
 
 #Add to grid
