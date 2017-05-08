@@ -6,6 +6,7 @@ except ImportError:
     from tkinter import *   ## notice lowercase 't' in tkinter here
 
 body = Tk();
+body.title("Scientific Calculator");
 
 #type of operation
 global oprType;
@@ -15,6 +16,8 @@ global num;
 global num1;
 
 oprType = -1;
+num=0;
+num1=0;
 
 #String var for numReader
 numReaderStr = StringVar();
@@ -63,24 +66,25 @@ def onEqualPress(numReader, numReaderStr, oprType, num):
         numReaderStr.set(answer);
 
 #Buttons
-add = Button(body, text="+", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 0));
-sub = Button(body, text="-", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 1));
-mult = Button(body, text="x", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 2));
-div = Button(body, text="/", bd=0, command = lambda: onOprPress(numReader, numReaderStr, 3));
-equal = Button(body, text="=", bd=0, command = lambda: onEqualPress(numReader, numReaderStr, oprT, num));
-clear = Button(body, text="AC", bd=0, command = lambda: onClearPress(numReader, numReaderStr, num, num1));
+add = Button(body, text="+", width=5, height=5, bd=0, command = lambda: onOprPress(numReader, numReaderStr, 0));
+sub = Button(body, text="-", width=5, height=5,bd=0, command = lambda: onOprPress(numReader, numReaderStr, 1));
+mult = Button(body, text="x", width=5, height=5, bd=0, command = lambda: onOprPress(numReader, numReaderStr, 2));
+div = Button(body, text="/", width=5, height=5, bd=0, command = lambda: onOprPress(numReader, numReaderStr, 3));
+equal = Button(body, text="=", width=5, height=5, bd=0, command = lambda: onEqualPress(numReader, numReaderStr, oprT, num));
+clear = Button(body, text="AC", width=30, height=5, bd=0, command = lambda: onClearPress(numReader, numReaderStr, num, num1));
+signChange = Button(body, text="+/-", width=5, height=5, bd=0, command = lambda: onSignChangePress(numReader, numReaderStr));
 
 #Numbers
-num0 = Button(body, text="0", bd=0, command = lambda: onNumPress(0, numReader, numReaderStr));
-num1 = Button(body, text="1", bd=0, command = lambda: onNumPress(1, numReader, numReaderStr));
-num2 = Button(body, text="2", bd=0, command = lambda: onNumPress(2, numReader, numReaderStr));
-num3 = Button(body, text="3", bd=0, command = lambda: onNumPress(3, numReader, numReaderStr));
-num4 = Button(body, text="4", bd=0, command = lambda: onNumPress(4, numReader, numReaderStr));
-num5 = Button(body, text="5", bd=0, command = lambda: onNumPress(5, numReader, numReaderStr));
-num6 = Button(body, text="6", bd=0, command = lambda: onNumPress(6, numReader, numReaderStr));
-num7 = Button(body, text="7", bd=0, command = lambda: onNumPress(7, numReader, numReaderStr));
-num8 = Button(body, text="8", bd=0, command = lambda: onNumPress(8, numReader, numReaderStr));
-num9 = Button(body, text="9", bd=0, command = lambda: onNumPress(9, numReader, numReaderStr));
+num0 = Button(body, text="0", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(0, numReader, numReaderStr));
+num1 = Button(body, text="1", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(1, numReader, numReaderStr));
+num2 = Button(body, text="2", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(2, numReader, numReaderStr));
+num3 = Button(body, text="3", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(3, numReader, numReaderStr));
+num4 = Button(body, text="4", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(4, numReader, numReaderStr));
+num5 = Button(body, text="5", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(5, numReader, numReaderStr));
+num6 = Button(body, text="6", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(6, numReader, numReaderStr));
+num7 = Button(body, text="7", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(7, numReader, numReaderStr));
+num8 = Button(body, text="8", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(8, numReader, numReaderStr));
+num9 = Button(body, text="9", width=5, height=5, background= "black",bd=0, command = lambda: onNumPress(9, numReader, numReaderStr));
 
 #onButtonPress
 def onNumPress(inNum, numReader, numReaderStr):
@@ -129,15 +133,24 @@ def onClearPress(numReader, numReaderStr, num, num1):
         numReaderStr.set("0");
         onEqualPress(numReader, numReaderStr, 0, 0);
 
+def onSignChangePress(numReader, numReaderStr):
+    checkNum = float(numReaderStr.get());
+    if checkNum > 0:
+        numReaderStr.set("-" + str(checkNum));
+    elif checkNum < 0:
+        checkNum = checkNum * (-1);
+        numReaderStr.set(str(checkNum));
+
 
 #Add to grid
 numReader.grid(row=1, column=0, columnspan=4);
 clear.grid(row=2, columnspan=3);
-add.grid(row=2, column=3);
-sub.grid(row=3, column=3);
-mult.grid(row=4, column=3);
-div.grid(row=5, column=3);
-equal.grid(row=6, column=3);
+add.grid(row=3, column=3);
+sub.grid(row=4, column=3);
+mult.grid(row=5, column=3);
+div.grid(row=6, column=3);
+equal.grid(row=6, column=2);
+signChange.grid(row=2, column=3);
 
 num0.grid(row=6,column=1);
 num1.grid(row=3,column=0);
