@@ -24,7 +24,7 @@ numReaderStr = StringVar();
 numReaderStr.set("0");
 
 #Dial
-numReader = Entry(body,width=13,exportselection=0,justify="right",bd=0,font="Helvetica 32", textvariable = numReaderStr);
+numReader = Entry(body,width=13,exportselection=0,justify="right",bd=5,font="Helvetica 32", textvariable = numReaderStr);
 
 #onButtonPress
 def onOprPress(numReader, numReaderStr, oprType):
@@ -88,15 +88,14 @@ num9 = Button(body, text="9", width=5, height=2, background= "black", foreground
 
 #onButtonPress
 def onNumPress(inNum, numReader, numReaderStr):
-    currentNum = float(numReaderStr.get());
-    if currentNum == 0:
-        numReaderStr.set(str(inNum));
-    else:
-        numConcat = numReaderStr.get();
-        numReaderStr.set(numConcat+str(inNum));
+        currentNum = float(numReaderStr.get());
+        if currentNum == 0:
+            numReaderStr.set(str(inNum));
+        else:
+            numConcat = numReaderStr.get();
+            numReaderStr.set(numConcat+str(inNum));
 
 def onOprPress(numReader, numReaderStr, oprType):
-    print ("Click!");
     global num;
     global oprT;
     num = float(numReader.get());
@@ -138,6 +137,8 @@ def onClearPress(numReader, numReaderStr, num, num1):
 
 def onSignChangePress(numReader, numReaderStr):
     checkNum = float(numReaderStr.get());
+    if (checkNum.is_integer()):
+        checkNum = int(checkNum);
     if checkNum > 0:
         numReaderStr.set("-" + str(checkNum));
     elif checkNum < 0:
@@ -147,23 +148,23 @@ def onSignChangePress(numReader, numReaderStr):
 
 #Add to grid
 numReader.grid(row=1, column=0, columnspan=4,ipadx=5);
-clear.grid(row=2, columnspan=3, ipadx=3);
+clear.grid(row=2, columnspan=3,ipadx=9);
 add.grid(row=3, column=3);
 sub.grid(row=4, column=3);
 mult.grid(row=5, column=3);
 div.grid(row=6, column=3);
-equal.grid(row=6, column=2);
+equal.grid(row=6, column=2,ipadx=2);
 signChange.grid(row=2, column=3);
 
-num0.grid(row=6,column=0,columnspan=2,ipadx=8);
-num1.grid(row=3,column=0);
-num2.grid(row=3,column=1);
-num3.grid(row=3,column=2);
-num4.grid(row=4,column=0);
-num5.grid(row=4,column=1);
-num6.grid(row=4,column=2);
-num7.grid(row=5,column=0);
-num8.grid(row=5,column=1);
-num9.grid(row=5,column=2);
+num0.grid(row=6,column=0,columnspan=2,ipadx=12);
+num1.grid(row=3,column=0,ipadx=2);
+num2.grid(row=3,column=1,ipadx=2);
+num3.grid(row=3,column=2,ipadx=2);
+num4.grid(row=4,column=0,ipadx=2);
+num5.grid(row=4,column=1,ipadx=2);
+num6.grid(row=4,column=2,ipadx=2);
+num7.grid(row=5,column=0,ipadx=2);
+num8.grid(row=5,column=1,ipadx=2);
+num9.grid(row=5,column=2,ipadx=2);
 
 body.mainloop();
